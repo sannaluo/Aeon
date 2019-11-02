@@ -298,7 +298,7 @@ class PageContent extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            3000
+            5000
         );
 
         // TODO:
@@ -332,7 +332,7 @@ class PageContent extends Component {
         return (
             <div>
                 <h1>Welcome to Aeon!</h1>
-                <h4>This page switches content every 3 seconds.</h4>
+                <h4>This page switches content every 5 seconds.</h4>
                 <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
                 <div>
                     {this.state.page}

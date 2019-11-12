@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Web.css';
 import {
-    BarChart, Bar, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    BarChart, Bar, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,  PieChart, Pie, Sector
 } from 'recharts';
 
 
@@ -44,8 +44,8 @@ class DailyChart extends Component {
     render() {
         return (
             <BarChart
-                width={500}
-                height={300}
+                width={1000}
+                height={500}
                 data={this.props.data}
                 margin={{
                     top: 5, right: 30, left: 20, bottom: 5,
@@ -126,6 +126,74 @@ class EnergyChart extends Component {
     }
 }
 
+
+/**
+ * Pie chart variables for previous day's challenge. From recharts.
+ *
+ */
+
+/**
+ * Data of the pie chart.
+ * @type {*[]}
+ */
+const pieChartData = [
+    { name: 'My school', value: 33 },
+    { name: 'Rival school', value: 12 }
+];
+
+/**
+ * Colours of the pie chart.
+ * @type {string[]}
+ */
+const COLORS = ['#49B788', '#415A77'];
+
+/**
+ * Some calculations ?? for making a customized chart, from recharts.
+ * @type {number}
+ */
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+                                   cx, cy, midAngle, innerRadius, outerRadius, percent, index,
+                               }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+            {`${(percent * 100).toFixed(0)}%`}
+        </text>
+    );
+};
+
+/**
+ * Returns a pie chart.
+ */
+class DailyPieChart extends Component {
+
+    render() {
+        return (
+            <PieChart width={200} height={200}>
+                <Pie
+                    data={pieChartData}
+                    cx={100}
+                    cy={100}
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#415A77"
+                    dataKey="value"
+                >
+                    {
+                        pieChartData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                    }
+                </Pie>
+            </PieChart>
+        );
+    }
+}
+
+
 /**
  * The first or main page.
  */
@@ -133,22 +201,56 @@ class MainPage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {data: ""}
+        this.state = {
+            data: "",
+            pieData:"",
+            pieColours: [],
+            totalAmount: "45",
+            mySchoolAmount: "33",
+            rivalSchoolAmount: "12"
+        }
     }
 
     componentDidMount() {
         let data = DailyChartData();
         console.log(data);
         this.setState({data: data});
-    }
 
+       /* let pieData = PieChartData();
+        this.setState({pieData : pieData});
+
+        let pieColours = PieChartColours();
+        this.setState({pieColours : pieColours});
+        */
+    }
+/*<h4>
+                    Main page is here.
+                </h4>*/
     render() {
         return (
             <div>
-                <h4>
-                    Main page is here.
-                </h4>
-                <DailyChart data={this.state.data}/>
+
+                <div id="mainPageContents">
+
+                    <DailyChart data={this.state.data}/>
+
+                    <aside>
+                        <div className="dailyChallengeBox">
+                            <h4>Today's challenge:</h4>
+                            <p>Use only one paper towel when you dry your hands!</p>
+                        </div>
+                        <div className="previousDailyChallengeBox">
+                            <h4>Yesterday's challenge:</h4>
+                            <p>Eat all of the food that you take!</p>
+                            <DailyPieChart/>
+                            <div>
+                                <p>Total amount of participants: {this.state.totalAmount}</p>
+                                <p>Mika Häkkinen school: {this.state.mySchoolAmount}</p>
+                                <p>Kimi Räikkönen school: {this.state.rivalSchoolAmount}</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
             </div>
         );
     }
@@ -170,7 +272,22 @@ class PopQuizPage extends Component {
 }
 
 /**
- * The third or energy graph page.
+ * The third or pop quiz answers page.
+ */
+class PopQuizAnswersPage extends Component {
+    render() {
+        return (
+            <div>
+                <h4>
+                    Pop quiz answers page is here.
+                </h4>
+            </div>
+        );
+    }
+}
+
+/**
+ * The fourth or energy graph page.
  */
 class GraphPage extends Component {
     constructor(props){
@@ -196,7 +313,7 @@ class GraphPage extends Component {
 }
 
 /**
- * The fourth or info page.
+ * The fifth or info page.
  */
 class InfoPage extends Component {
     render() {
@@ -206,6 +323,33 @@ class InfoPage extends Component {
                     Info page is here.
                 </h4>
             </div>
+        );
+    }
+}
+
+
+class Header extends Component {
+    render() {
+        return (
+            <header id="mainHeader">
+                <div id="headlines">
+                    <h1 id="mySchoolHeadline">Mika Häkkinen school</h1>
+                    <h2 id="rivalSchoolHeadline">vs Kimi Räikkönen school</h2>
+                </div>
+
+            </header>
+        );
+    }
+}
+
+class Footer extends Component {
+    render() {
+        return (
+            <footer id="mainFooter">
+                <p>
+                    Go to firebase.aeon.com to start playing!
+                </p>
+            </footer>
         );
     }
 }
@@ -229,22 +373,27 @@ function ChangeBackgroundColour(page) {
             }
                 break;
             case 3: {
-                targetEl.style.background = "linear-gradient(90deg, #415A77 0%, #49B788 100%)";
+                targetEl.style.background = "linear-gradient(90deg, #E9C46A 0%, #F4A261 100%)";
             }
                 break;
             case 4: {
+                targetEl.style.background = "linear-gradient(90deg, #415A77 0%, #49B788 100%)";
+            }
+                break;
+            case 5: {
                 targetEl.style.background = "linear-gradient(90deg, #E9C46A 0%, #F4A261 100%)";
             }
                 break;
         }
     }
-
+/*
     if(page === 2){
         targetEl.style.background = "linear-gradient(90deg, #415A77 0%, #49B788 100%)";
     }
     if(page === 3){
         targetEl.style.background = "background: linear-gradient(90deg, #E9C46A 0%, #F4A261 100%);";
     }
+    */
 }
 
 /**
@@ -267,8 +416,9 @@ function ChangePage(props) {
     switch(page) {
         case 1: return <MainPage/>;
         case 2: return <PopQuizPage/>;
-        case 3: return <GraphPage/>;
-        case 4: return <InfoPage/>;
+        case 3: return <PopQuizAnswersPage/>;
+        case 4: return <GraphPage/>;
+        case 5:  return <InfoPage/>;
     }
 
     // if props.page is somehow not 1-4
@@ -298,7 +448,7 @@ class PageContent extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            5000
+            500000
         );
 
         // TODO:
@@ -315,7 +465,7 @@ class PageContent extends Component {
 
     tick() {
         let currentPage = this.state.page;
-        if (currentPage === 4) {
+        if (currentPage === 5) {
             currentPage = 0
         }
         let newPage = currentPage +1;
@@ -327,22 +477,27 @@ class PageContent extends Component {
             page: newPage
         });
     }
-
+    /*
+                    <h1> Welcome to Aeon!</h1>
+                    <h4>This page switches content every 5 seconds.</h4>
+                    <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                    {this.state.page}
+                    */
     render() {
         return (
-            <div>
-                <h1>Welcome to Aeon!</h1>
-                <h4>This page switches content every 5 seconds.</h4>
-                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+            <div id="mainContainer">
+                <Header/>
                 <div>
-                    {this.state.page}
                     <ChangePage page={this.state.page}/>
                 </div>
+                <Footer/>
             </div>
 
         );
     }
 }
+
+/*<h1>Web</h1>*/
 
 /**
  * The whole page.
@@ -352,7 +507,6 @@ class PageContent extends Component {
 function Web() {
     return (
         <div className="App">
-            <h1>Web</h1>
             <PageContent page={MainPage}/>
         </div>
     );

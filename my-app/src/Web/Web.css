@@ -12,4 +12,68 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
     width:100%;
     overflow:hidden;
     background: linear-gradient(90deg, #E9C46A 0%, #F4A261 100%);
+    color: #264653;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#mainPageContents {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+aside {
+    padding-right: 2rem;
+}
+
+.dailyChallengeBox {
+    background-color: rgba(255, 255, 255, 0.51);
+    width: 20rem;
+    padding: 1rem;
+ }
+
+.previousDailyChallengeBox {
+    background-color: rgba(255, 255, 255, 0.51);
+    width: 20rem;
+    padding: 1rem;
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.previousDailyChallengeBox p {
+    margin: 0.5rem 0;
+}
+
+#mainHeader {
+    padding: 2rem 0 0 2rem;
+    text-align: left;
+}
+
+#mainHeader #headlines {
+    color: #264653;
+}
+
+#mainHeader h2 {
+    padding-left: 1rem;
+}
+
+#mainHeader h2, #mainHeader h1 {
+    margin: 0;
+}
+
+
+
+#mainFooter {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
 }

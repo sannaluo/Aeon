@@ -327,7 +327,6 @@ class InfoPage extends Component {
     }
 }
 
-
 class Header extends Component {
     render() {
         return (
@@ -336,7 +335,6 @@ class Header extends Component {
                     <h1 id="mySchoolHeadline">Mika Häkkinen school</h1>
                     <h2 id="rivalSchoolHeadline">vs Kimi Räikkönen school</h2>
                 </div>
-
             </header>
         );
     }
@@ -403,12 +401,21 @@ function ChangeBackgroundColour(page) {
  * @constructor
  */
 function ChangePage(props) {
-    const page = props.page;
+    let page = props.page;
     /*
     if(page === 2){
         return <MainPage/>;
     }
     */
+
+    /* checking if the page is being set manually from hidden navigation
+    if(manualPageSwitch !== 0) {
+        console.log(manualPageSwitch);
+        page = manualPageSwitch;
+        manualPageSwitch = 0;
+    }
+    */
+
     ChangeBackgroundColour(page);
 
    // return <GraphPage/>
@@ -418,7 +425,7 @@ function ChangePage(props) {
         case 2: return <PopQuizPage/>;
         case 3: return <PopQuizAnswersPage/>;
         case 4: return <GraphPage/>;
-        case 5:  return <InfoPage/>;
+        case 5: return <InfoPage/>;
     }
 
     // if props.page is somehow not 1-4
@@ -448,19 +455,20 @@ class PageContent extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            500000
+            5000
         );
-
-        // TODO:
-        /*
-        const targetEl = document.getElementsByClassName("App")[0];
-        console.log(targetEl);
-        targetEl.style.background = "linear-gradient(90deg, #415A77 0%, #49B788 100%)";
-        */
     }
 
     componentWillUnmount() {
         clearInterval(this.timerID);
+    }
+
+    // change the page with a hidden navigation
+    manualSwitch(number) {
+        clearInterval(this.timerID);
+        this.setState({
+            page: number
+        });
     }
 
     tick() {
@@ -477,6 +485,11 @@ class PageContent extends Component {
             page: newPage
         });
     }
+
+    handleClick(number, e) {
+        e.preventDefault();
+        this.manualSwitch(number);
+    }
     /*
                     <h1> Welcome to Aeon!</h1>
                     <h4>This page switches content every 5 seconds.</h4>
@@ -487,6 +500,13 @@ class PageContent extends Component {
         return (
             <div id="mainContainer">
                 <Header/>
+                <ul id="manualPageNav">
+                    <li onClick={(e) => this.handleClick(1, e)}>1</li>
+                    <li onClick={(e) => this.handleClick(2, e)}>2</li>
+                    <li onClick={(e) => this.handleClick(3, e)}>3</li>
+                    <li onClick={(e) => this.handleClick(4, e)}>4</li>
+                    <li onClick={(e) => this.handleClick(5, e)}>5</li>
+                </ul>
                 <div>
                     <ChangePage page={this.state.page}/>
                 </div>

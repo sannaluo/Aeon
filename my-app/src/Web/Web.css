@@ -56,21 +56,48 @@ aside {
 #mainHeader {
     padding: 2rem 0 0 2rem;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
 }
 
 #mainHeader #headlines {
     color: #264653;
 }
 
+#mainHeader h1 {
+    background: -webkit-linear-gradient(#49B788, #264653);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 #mainHeader h2 {
     padding-left: 1rem;
+
+    background: -webkit-linear-gradient(#415A77, #264653);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #mainHeader h2, #mainHeader h1 {
     margin: 0;
 }
 
+#manualPageNav {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    right: 0;
+}
 
+#manualPageNav li {
+    padding: 0 0.5rem;
+    cursor: pointer;
+    color: transparent;
+}
+
+#manualPageNav li:hover, #manualPageNav li:active {
+    color: #264653;
+}
 
 #mainFooter {
     display: flex;

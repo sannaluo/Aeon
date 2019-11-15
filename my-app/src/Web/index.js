@@ -228,44 +228,117 @@ class MainPage extends Component {
                 </h4>*/
     render() {
         return (
-            <div>
-
-                <div id="mainPageContents">
-
-                    <DailyChart data={this.state.data}/>
-
-                    <aside>
-                        <div className="dailyChallengeBox">
-                            <h4>Today's challenge:</h4>
-                            <p>Use only one paper towel when you dry your hands!</p>
+            <div id="mainPageContents">
+                <DailyChart data={this.state.data}/>
+                <aside>
+                    <div className="dailyChallengeBox">
+                        <h4>Today's challenge:</h4>
+                        <p>Use only one paper towel when you dry your hands!</p>
+                    </div>
+                    <div className="previousDailyChallengeBox">
+                        <h4>Yesterday's challenge:</h4>
+                        <p>Eat all of the food that you take!</p>
+                        <DailyPieChart/>
+                        <div>
+                            <p>Total amount of participants: {this.state.totalAmount}</p>
+                            <p>Mika Häkkinen school: {this.state.mySchoolAmount}</p>
+                            <p>Kimi Räikkönen school: {this.state.rivalSchoolAmount}</p>
                         </div>
-                        <div className="previousDailyChallengeBox">
-                            <h4>Yesterday's challenge:</h4>
-                            <p>Eat all of the food that you take!</p>
-                            <DailyPieChart/>
-                            <div>
-                                <p>Total amount of participants: {this.state.totalAmount}</p>
-                                <p>Mika Häkkinen school: {this.state.mySchoolAmount}</p>
-                                <p>Kimi Räikkönen school: {this.state.rivalSchoolAmount}</p>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
+                    </div>
+                </aside>
             </div>
         );
     }
+}
+
+
+const quizQuestions = ["Example question number one?", "Example question number two?", "Example question number three?"];
+const quizAnswers = [
+        [
+            ["q1 Answer number one.", false],
+            ["Answer number two.", true],
+            ["Answer number three.", false]
+        ],
+        [
+            ["q2 Answer number one.", true],
+            ["Answer number two.", false],
+            ["Answer number three.", false]
+        ],
+        [
+            ["q3 Answer number one.", false],
+            ["Answer number two.", false],
+            ["Answer number three.", true]
+        ]
+    ];
+
+
+function randomQuestion() {
+    let number = Math.floor(Math.random() * 3);
+    return number;
+}
+
+let oldNumber;
+
+function getQuiz(type, number) {
+
+    if(type === "question"){
+        oldNumber = number;
+        return quizQuestions [number];
+    }
+
+    if (type === "answer") {
+        oldNumber = number;
+        return quizAnswers [number];
+    }
+
+    if (type === "previousQuestion") {
+        return quizQuestions [oldNumber];
+    }
+
+    if(type === "rightAnswers") {
+        return quizAnswers [oldNumber];
+    }
+
+    return "Could not retrieve questions. :(";
 }
 
 /**
  * The second or pop quiz page.
  */
 class PopQuizPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {question: "",
+        answers: []}
+    }
+
+    componentDidMount() {
+        let number = randomQuestion();
+        let question = getQuiz("question", number);
+        this.setState({question: question});
+
+        let answers = getQuiz("answer", number);
+        this.setState({answers: answers});
+        console.log(answers);
+    }
+
     render() {
         return (
-            <div>
-                <h4>
-                    Pop quiz page is here.
-                </h4>
+            <div id="popQuizPageContents">
+                <div className="popQuizBox">
+                    <h3>{this.state.question}</h3>
+                    <ul className="popQuizAnswers">
+                        <li>
+                            a) {this.state.answers[0]}
+                        </li>
+                        <li>
+                            b) {this.state.answers[1]}
+                        </li>
+                        <li>
+                            c) {this.state.answers[2]}
+                        </li>
+                    </ul>
+                </div>
             </div>
         );
     }
@@ -275,12 +348,63 @@ class PopQuizPage extends Component {
  * The third or pop quiz answers page.
  */
 class PopQuizAnswersPage extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {question: "",
+            answers: []}
+    }
+
+    changeColor(answers) {
+
+        if(answers[0][1] === true) {
+            const el = document.getElementsByClassName("answer")[0];
+            el.style.border = "2px solid #49B788";
+            console.log(answers[0][1]);
+        }
+        if(answers[1][1] === true) {
+            const el = document.getElementsByClassName("answer")[0];
+            el.style.border = "2px solid #49B788";
+            console.log(answers[1][1]);
+        }
+        if(answers[2][1] === true) {
+            const el = document.getElementsByClassName("answer")[0];
+            el.style.border = "2px solid #49B788";
+            console.log(answers[2][1]);
+        }
+    }
+
+    componentDidMount() {
+        let number = oldNumber;
+        let question = getQuiz("question", number);
+        this.setState({question: question});
+
+        let answers = getQuiz("answer", number);
+        this.setState({answers: answers});
+        console.log(answers[0][1]);
+
+        this.changeColor(answers);
+    }
+
+
+
     render() {
         return (
-            <div>
-                <h4>
-                    Pop quiz answers page is here.
-                </h4>
+            <div id="popQuizAnswerPageContents">
+                <div className="popQuizBox">
+                    <h3>{this.state.question}</h3>
+                    <ul className="popQuizAnswers">
+                        <li className="answer">
+                            a) {this.state.answers[0]}
+                        </li>
+                        <li className="answer">
+                            b) {this.state.answers[1]}
+                        </li>
+                        <li className="answer">
+                            c) {this.state.answers[2]}
+                        </li>
+                    </ul>
+                </div>
             </div>
         );
     }
@@ -356,6 +480,8 @@ class Footer extends Component {
 function ChangeBackgroundColour(page) {
    // const page = page;
     const targetEl = document.getElementsByClassName("App")[0];
+    const headlines = document.getElementById("headlines");
+    const rivalHeadline = document.getElementById("rivalSchoolHeadline");
 
     console.log(page);
     console.log(targetEl);
@@ -364,22 +490,29 @@ function ChangeBackgroundColour(page) {
         switch (page) {
             case 1: {
                 targetEl.style.background = "linear-gradient(90deg, #E9C46A 0%, #F4A261 100%)";
+                headlines.style.color = "#264653";
+                rivalHeadline.style.color = "#264653";
             }
                 break;
             case 2: {
                 targetEl.style.background = "linear-gradient(90deg, #415A77 0%, #49B788 100%)";
+                headlines.style.color = "#E9C46A";
+                rivalHeadline.style.color = "transparent";
             }
                 break;
             case 3: {
                 targetEl.style.background = "linear-gradient(90deg, #E9C46A 0%, #F4A261 100%)";
+                headlines.style.color = "#264653";
             }
                 break;
             case 4: {
                 targetEl.style.background = "linear-gradient(90deg, #415A77 0%, #49B788 100%)";
+                headlines.style.color = "#E9C46A";
             }
                 break;
             case 5: {
                 targetEl.style.background = "linear-gradient(90deg, #E9C46A 0%, #F4A261 100%)";
+                headlines.style.color = "#264653";
             }
                 break;
         }
@@ -488,6 +621,7 @@ class PageContent extends Component {
 
     handleClick(number, e) {
         e.preventDefault();
+        ChangeBackgroundColour(number);
         this.manualSwitch(number);
     }
     /*

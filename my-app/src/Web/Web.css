@@ -15,6 +15,7 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
     color: #264653;
 }
 
+/*main page*/
 #mainContainer {
     display: flex;
     flex-direction: column;
@@ -30,6 +31,7 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
 
 aside {
     padding-right: 2rem;
+    font-size: 110%;
 }
 
 .dailyChallengeBox {
@@ -37,6 +39,10 @@ aside {
     width: 20rem;
     padding: 1rem;
  }
+
+.dailyChallengeBox h4, .previousDailyChallengeBox h4 {
+    margin: 0.5rem 0;
+}
 
 .previousDailyChallengeBox {
     background-color: rgba(255, 255, 255, 0.51);
@@ -53,6 +59,45 @@ aside {
     margin: 0.5rem 0;
 }
 
+
+/*pop quiz*/
+
+#popQuizPageContents, #popQuizAnswerPageContents {
+    display: flex;
+    justify-content: center;
+}
+
+.popQuizBox {
+    width: 50rem;
+    height: 30rem;
+    background-color: rgba(255, 255, 255, 0.51);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.popQuizBox .popQuizAnswers {
+    list-style: none;
+    text-align: left;
+
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.popQuizBox .popQuizAnswers li {
+    margin: 2rem;
+    padding: 0.5rem;
+    border: 2px solid transparent;
+}
+
+.popQuizAnswers .answer {
+    padding: 0.5rem;
+}
+
+
+    /*general*/
 #mainHeader {
     padding: 2rem 0 0 2rem;
     text-align: left;
@@ -65,17 +110,20 @@ aside {
 }
 
 #mainHeader h1 {
+    /*
     background: -webkit-linear-gradient(#49B788, #264653);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    */
 }
 
 #mainHeader h2 {
     padding-left: 1rem;
-
+/*
     background: -webkit-linear-gradient(#415A77, #264653);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    */
 }
 
 #mainHeader h2, #mainHeader h1 {

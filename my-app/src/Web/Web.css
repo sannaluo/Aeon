@@ -71,6 +71,7 @@ aside {
     width: 50rem;
     height: 30rem;
     background-color: rgba(255, 255, 255, 0.51);
+    font-size: 120%;
 
     display: flex;
     flex-direction: column;
@@ -96,6 +97,13 @@ aside {
     padding: 0.5rem;
 }
 
+/* graph page */
+
+#graphContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
     /*general*/
 #mainHeader {

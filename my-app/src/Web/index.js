@@ -252,22 +252,22 @@ class MainPage extends Component {
 }
 
 
-const quizQuestions = ["Example question number one?", "Example question number two?", "Example question number three?"];
+const quizQuestions = ["Which isn’t a renewable energy?", "Where is most of the drinking water coming from in Finland?", "Which way of travelling produces the most pollution?"];
 const quizAnswers = [
         [
-            ["q1 Answer number one.", false],
-            ["Answer number two.", true],
-            ["Answer number three.", false]
+            ["Solar energy.", false],
+            ["Coal energy.", true],
+            ["Water energy.", false]
         ],
         [
-            ["q2 Answer number one.", true],
-            ["Answer number two.", false],
-            ["Answer number three.", false]
+            ["Out of rivers and lakes.", true],
+            ["Rain water.", false],
+            ["Aquifers.", false]
         ],
         [
-            ["q3 Answer number one.", false],
-            ["Answer number two.", false],
-            ["Answer number three.", true]
+            ["By bus.", false],
+            ["By car.", false],
+            ["By plane.", true]
         ]
     ];
 
@@ -320,6 +320,9 @@ class PopQuizPage extends Component {
         let answers = getQuiz("answer", number);
         this.setState({answers: answers});
         console.log(answers);
+
+        console.log(number)
+       // oldNumber = number;
     }
 
     render() {
@@ -363,12 +366,12 @@ class PopQuizAnswersPage extends Component {
             console.log(answers[0][1]);
         }
         if(answers[1][1] === true) {
-            const el = document.getElementsByClassName("answer")[0];
+            const el = document.getElementsByClassName("answer")[1];
             el.style.border = "2px solid #49B788";
             console.log(answers[1][1]);
         }
         if(answers[2][1] === true) {
-            const el = document.getElementsByClassName("answer")[0];
+            const el = document.getElementsByClassName("answer")[2];
             el.style.border = "2px solid #49B788";
             console.log(answers[2][1]);
         }
@@ -381,8 +384,8 @@ class PopQuizAnswersPage extends Component {
 
         let answers = getQuiz("answer", number);
         this.setState({answers: answers});
-        console.log(answers[0][1]);
-
+        //console.log(answers[0][1]);
+       // console.log(answers);
         this.changeColor(answers);
     }
 
@@ -426,10 +429,7 @@ class GraphPage extends Component {
     }
     render() {
         return (
-            <div>
-                <h4>
-                    Energy graph page is here.
-                </h4>
+            <div id="graphContainer">
                 <EnergyChart data={this.state.data}/>
             </div>
         );
@@ -588,7 +588,7 @@ class PageContent extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            5000
+            7000
         );
     }
 

@@ -5,6 +5,8 @@ import {
 } from 'recharts';
 
 
+import placeholderImage from '../images/gray-bridge-and-trees-814499.jpg';
+
 /**
  * Set the data for daily questions chart. School1 is "my school".
  * @returns {*[]}
@@ -110,8 +112,8 @@ class EnergyChart extends Component {
     render() {
         return (
             <LineChart
-                width={700}
-                height={300}
+                width={1000}
+                height={500}
                 data={this.props.data}
                 margin={{
                     top: 5, right: 30, left: 20, bottom: 5,
@@ -436,20 +438,60 @@ class GraphPage extends Component {
     }
 }
 
+
+
+const infoArray = ["Info number 1.", "Did you know?", "Important note."];
+const infoImageArray = [placeholderImage, placeholderImage, placeholderImage];
+
+
+function getInfo(type) {
+    console.log(oldNumber);
+    let number = randomQuestion(); // this could also be oldNumber if we want them to be related
+    let returnable = infoArray[number];
+
+    if(type === "image") {
+        returnable = infoImageArray[number];
+    }
+    return returnable;
+}
+
 /**
  * The fifth or info page.
  */
 class InfoPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {data: "", img: ""}
+    }
+
+    componentDidMount() {
+        let data = getInfo();
+        console.log(data);
+        this.setState({data: data});
+
+        let imgSource = getInfo("image");
+        console.log(imgSource);
+        this.setState({img: imgSource});
+
+        const el = document.getElementById("infoPageBox");
+        // el.style.backgroundImage = "url("imgSource")";
+
+    }
+
+
     render() {
         return (
-            <div>
-                <h4>
-                    Info page is here.
-                </h4>
+            <div id="infoPageContents">
+                <div id="infoPageBox">
+                    <p>{this.state.data}</p>
+                    <img id="infoPageImg" src={this.state.img}/>
+                </div>
             </div>
         );
     }
 }
+
+
 
 class Header extends Component {
     render() {
@@ -469,7 +511,7 @@ class Footer extends Component {
         return (
             <footer id="mainFooter">
                 <p>
-                    Go to firebase.aeon.com to start playing!
+                    Go to web.aeon.com to start playing!
                 </p>
             </footer>
         );
@@ -588,7 +630,7 @@ class PageContent extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            7000
+            10000
         );
     }
 

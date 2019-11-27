@@ -62,12 +62,12 @@ aside {
 
 /*pop quiz*/
 
-#popQuizPageContents, #popQuizAnswerPageContents {
+#popQuizPageContents, #popQuizAnswerPageContents, #infoPageContents {
     display: flex;
     justify-content: center;
 }
 
-.popQuizBox {
+.popQuizBox, #infoPageBox {
     width: 50rem;
     height: 30rem;
     background-color: rgba(255, 255, 255, 0.51);
@@ -103,6 +103,16 @@ aside {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* info page (also above)*/
+
+#infoPageBox {
+    align-items: center;
+}
+
+#infoPageImg {
+    width: 20rem;
 }
 
     /*general*/

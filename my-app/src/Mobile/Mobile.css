@@ -1,0 +1,117 @@
+html,body{ margin:0; padding:0; height:100%; width:100%; }
+
+#Menu {
+    float: right;
+    position: relative;
+    font-size: 3rem;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+h2 {
+    color: white;
+    left: 0.2rem;
+    margin-top: 1rem;
+}
+
+#challengeBox{
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem 2rem 1rem;
+}
+
+#challengeHeader{
+    margin-top: 0.2rem;
+}
+
+.buttonTrue{
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: white;
+    border: none;
+    position: sticky;
+    right: 1.2rem;
+    top: 6.5rem;
+}
+
+.buttonFalse{
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: red;
+    border: none;
+    position: sticky;
+    right: 1.2rem;
+    top: 6.5rem;
+    content: 'Well done!';
+}
+
+#Questions{
+    background-color: rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    text-align: center;
+    padding: 1rem;
+}
+
+#Questions a{
+    margin: 1.5rem;
+    font-size: 2rem;
+}
+
+#Questions h3{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+#Questions li{
+    list-style-type: none;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    border: solid white;
+    padding: 0.5rem;
+    text-align: left;
+
+}
+
+.content {
+    margin: 0.5rem;
+}

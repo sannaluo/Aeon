@@ -59,12 +59,23 @@ aside {
     margin: 0.5rem 0;
 }
 
+ .chartHeadlineText {
+    text-align: left;
+    padding-left: 2rem;
+}
+
+#rivalSchoolHeadline {
+    color: #264653;
+}
+
 
 /*pop quiz*/
 
 #popQuizPageContents, #popQuizAnswerPageContents, #infoPageContents {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .popQuizBox, #infoPageBox {
@@ -97,6 +108,12 @@ aside {
     padding: 0.5rem;
 }
 
+.popHeadlineText {
+    width: 50rem;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.51);
+}
+
 /* graph page */
 
 #graphContainer{
@@ -105,15 +122,31 @@ aside {
     align-items: center;
 }
 
+.chartHeadlineText{
+    color: rgba(255, 255, 255, 0.51);
+}
+
+.recharts-legend-wrapper {
+    bottom: auto !important;
+}
+
 /* info page (also above)*/
 
 #infoPageBox {
     align-items: center;
+    justify-content: space-between;
+}
+
+#infoPageBox p {
+    margin: 2rem 4rem;
+    font-style: italic;
 }
 
 #infoPageImg {
     width: 20rem;
+    margin-bottom: 2rem;
 }
+
 
     /*general*/
 #mainHeader {
@@ -125,23 +158,12 @@ aside {
 
 #mainHeader #headlines {
     color: #264653;
-}
-
-#mainHeader h1 {
-    /*
-    background: -webkit-linear-gradient(#49B788, #264653);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    */
+    display: flex;
 }
 
 #mainHeader h2 {
     padding-left: 1rem;
-/*
-    background: -webkit-linear-gradient(#415A77, #264653);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    */
+    line-height: 50px;
 }
 
 #mainHeader h2, #mainHeader h1 {

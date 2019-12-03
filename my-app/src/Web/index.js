@@ -6,6 +6,9 @@ import {
 
 
 import placeholderImage from '../images/gray-bridge-and-trees-814499.jpg';
+import infoImage1 from '../images/person-s-left-hand-holding-green-leaf-plant-886521.jpg';
+import infoImage2 from '../images/helsinki_tunnus_valkoinen-1.png';
+import infoImage3 from '../images/photo-of-plastic-bottles-2547565.jpg';
 
 /**
  * Set the data for daily questions chart. School1 is "my school".
@@ -74,25 +77,25 @@ export function EnergyChartData() {
 
     const data = [
         {
-            name: '01.11.', uv: 4000, pv: 2400, amt: 2400,
+            name: '01.12.', average: 4000, ours: 2400, amt: 2400,
         },
         {
-            name: '02.11.', uv: 3000, pv: 1398, amt: 2210,
+            name: '02.12.', average: 3000, ours: 1398, amt: 2210,
         },
         {
-            name: '03.11.', uv: 2000, pv: 9800, amt: 2290,
+            name: '03.12.', average: 2000, ours: 9800, amt: 2290,
         },
         {
-            name: '04.11.', uv: 2780, pv: 3908, amt: 2000,
+            name: '04.12.', average: 2780, ours: 3908, amt: 2000,
         },
         {
-            name: '05.11.', uv: 1890, pv: 4800, amt: 2181,
+            name: '05.12.', average: 1890, ours: 4800, amt: 2181,
         },
         {
-            name: '06.11.', uv: 2390, pv: 3800, amt: 2500,
+            name: '06.12.', average: 2390, ours: 3800, amt: 2500,
         },
         {
-            name: '07.11.', uv: 3490, pv: 4300, amt: 2100,
+            name: '07.12.', average: 3490, ours: 4300, amt: 2100,
         },
     ];
 
@@ -113,7 +116,7 @@ class EnergyChart extends Component {
         return (
             <LineChart
                 width={1000}
-                height={500}
+                height={400}
                 data={this.props.data}
                 margin={{
                     top: 5, right: 30, left: 20, bottom: 5,
@@ -122,7 +125,9 @@ class EnergyChart extends Component {
                 <CartesianGrid strokeDasharray="3 3" stroke="white"/>
                 <XAxis dataKey="name" stroke="white"/>
                 <YAxis stroke="white"/>
-                <Line type="linear" dataKey="pv" stroke="#F4A261" dot={false} strokeWidth={5}/>
+                <Legend/>
+                <Line type="linear" dataKey="average" stroke="#415A77" dot={false} strokeWidth={5}/>
+                <Line type="linear" dataKey="ours" stroke="#E9C46A" dot={false} strokeWidth={5}/>
             </LineChart>
         );
     }
@@ -231,7 +236,10 @@ class MainPage extends Component {
     render() {
         return (
             <div id="mainPageContents">
-                <DailyChart data={this.state.data}/>
+                <div>
+                    <h2 className="chartHeadlineText">Which school has the most correct answers?</h2>
+                    <DailyChart data={this.state.data}/>
+                </div>
                 <aside>
                     <div className="dailyChallengeBox">
                         <h4>Today's challenge:</h4>
@@ -330,6 +338,7 @@ class PopQuizPage extends Component {
     render() {
         return (
             <div id="popQuizPageContents">
+                <h2 className="popHeadlineText">Pop Quiz!</h2>
                 <div className="popQuizBox">
                     <h3>{this.state.question}</h3>
                     <ul className="popQuizAnswers">
@@ -396,6 +405,7 @@ class PopQuizAnswersPage extends Component {
     render() {
         return (
             <div id="popQuizAnswerPageContents">
+                <h2 className="popHeadlineText">Pop Quiz!</h2>
                 <div className="popQuizBox">
                     <h3>{this.state.question}</h3>
                     <ul className="popQuizAnswers">
@@ -432,6 +442,7 @@ class GraphPage extends Component {
     render() {
         return (
             <div id="graphContainer">
+                <h2 className="chartHeadlineText">Our energy consumption:</h2>
                 <EnergyChart data={this.state.data}/>
             </div>
         );
@@ -440,19 +451,40 @@ class GraphPage extends Component {
 
 
 
-const infoArray = ["Info number 1.", "Did you know?", "Important note."];
-const infoImageArray = [placeholderImage, placeholderImage, placeholderImage];
+const infoArray = ["\"Sustainability is concerned with assuming that nature and the environment are not an inexhaustible resource and so, it is necessary to protect them and use them rationally.\"",
+    "\"The City of Helsinki works continuously to be a model city of smart and sustainable development. Helsinki is committed to promoting green values in all its operations and hopes that they are taken into consideration in all events and activities organised within the city.\"",
+    "\"Plastic is a material made to last forever, yet 33 percent of all plastic - water bottles, bags and straws - are used just once and thrown away. Plastic cannot biodegrade; it breaks down into smaller and smaller pieces.\""];
+const infoImageArray = [infoImage1, infoImage2, infoImage3];
 
+let oldNumberInfo = "";
+let number = 0;
 
 function getInfo(type) {
-    console.log(oldNumber);
-    let number = randomQuestion(); // this could also be oldNumber if we want them to be related
     let returnable = infoArray[number];
+    /*
+    console.log(oldNumber);
+    let number = randomQuestion();
+    let returnable = infoArray[number];
+    oldNumberInfo = number;
+
+    console.log("tämä " + number);
+    console.log(returnable);
+    */
 
     if(type === "image") {
         returnable = infoImageArray[number];
+        console.log("tämä " + number);
+        number++;
+
+        if(number === 3) {
+            number = 0;
+        }
+        return returnable;
     }
+    console.log("tämä " + number);
+
     return returnable;
+
 }
 
 /**
@@ -482,6 +514,7 @@ class InfoPage extends Component {
     render() {
         return (
             <div id="infoPageContents">
+                <h2 className="popHeadlineText">Did you know?</h2>
                 <div id="infoPageBox">
                     <p>{this.state.data}</p>
                     <img id="infoPageImg" src={this.state.img}/>
@@ -498,7 +531,7 @@ class Header extends Component {
         return (
             <header id="mainHeader">
                 <div id="headlines">
-                    <h1 id="mySchoolHeadline">Mika Häkkinen school</h1>
+                    <h1 id="mySchoolHeadline">Mika Häkkinen school </h1>
                     <h2 id="rivalSchoolHeadline">vs Kimi Räikkönen school</h2>
                 </div>
             </header>

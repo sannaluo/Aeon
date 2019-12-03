@@ -10,6 +10,10 @@ import infoImage1 from '../images/person-s-left-hand-holding-green-leaf-plant-88
 import infoImage2 from '../images/helsinki_tunnus_valkoinen-1.png';
 import infoImage3 from '../images/photo-of-plastic-bottles-2547565.jpg';
 
+
+let dataNumbers1 = [2,5,6,6];
+let dataNumbers2 = [8,5,4,4];
+
 /**
  * Set the data for daily questions chart. School1 is "my school".
  * @returns {*[]}
@@ -17,18 +21,37 @@ import infoImage3 from '../images/photo-of-plastic-bottles-2547565.jpg';
  */
 export function DailyChartData() {
 
+
+    console.log("daily chart data");
+
+    for(let i = 0; i < dataNumbers1.length; i++)
+    {
+        console.log(dataNumbers1[i]);
+        if(i !== 3) {
+            dataNumbers1[i] = dataNumbers1[i] + 1;
+        }
+    }
+
+    for(let i = 0; i < dataNumbers2.length; i++)
+    {
+        console.log(dataNumbers2[i]);
+        dataNumbers2[i] = dataNumbers2[i] + 1;
+    }
+
+    console.log(dataNumbers1);
+
     const data = [
         {
-            name: 'Q 1', school1: 2, school2: 8,
+            name: 'Q 1', school1: dataNumbers1[0], school2: dataNumbers2[0],
         },
         {
-            name: 'Q 2', school1: 5, school2: 5,
+            name: 'Q 2', school1: dataNumbers1[1], school2:  dataNumbers2[1],
         },
         {
-            name: 'Q 3', school1: 6, school2: 4,
+            name: 'Q 3', school1: dataNumbers1[2], school2:  dataNumbers2[2],
         },
         {
-            name: 'Q 4', school1: 6, school2: 4,
+            name: 'Q 4', school1: dataNumbers1[3], school2:  dataNumbers2[3],
         }
     ];
 
@@ -262,22 +285,22 @@ class MainPage extends Component {
 }
 
 
-const quizQuestions = ["Which isn’t a renewable energy?", "Where is most of the drinking water coming from in Finland?", "Which way of travelling produces the most pollution?"];
+const quizQuestions = ["Which isn’t a type of renewable energy?", "Where is most of the drinking water coming from in Finland?", "Which transportation device produces the most pollution?"];
 const quizAnswers = [
         [
             ["Solar energy.", false],
-            ["Coal energy.", true],
-            ["Water energy.", false]
+            ["Coal.", true],
+            ["Hydroelectric energy.", false]
         ],
         [
-            ["Out of rivers and lakes.", true],
+            ["Ground and surface water.", true],
             ["Rain water.", false],
             ["Aquifers.", false]
         ],
         [
-            ["By bus.", false],
-            ["By car.", false],
-            ["By plane.", true]
+            ["A bus.", false],
+            ["A car.", false],
+            ["A plane.", true]
         ]
     ];
 
@@ -319,7 +342,8 @@ class PopQuizPage extends Component {
     constructor(props){
         super(props);
         this.state = {question: "",
-        answers: []}
+        answers: [],
+        time: 15}
     }
 
     componentDidMount() {
@@ -331,14 +355,32 @@ class PopQuizPage extends Component {
         this.setState({answers: answers});
         console.log(answers);
 
-        console.log(number)
+        console.log(number);
        // oldNumber = number;
+
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    tick() {
+        let oldTime = this.state.time;
+        let newTime = oldTime - 1;
+
+        this.setState({
+            time: newTime
+        });
     }
 
     render() {
         return (
             <div id="popQuizPageContents">
-                <h2 className="popHeadlineText">Pop Quiz!</h2>
+                <h2 className="popHeadlineText">Pop Quiz! Think of an answer in {this.state.time} seconds.</h2>
                 <div className="popQuizBox">
                     <h3>{this.state.question}</h3>
                     <ul className="popQuizAnswers">
@@ -405,7 +447,7 @@ class PopQuizAnswersPage extends Component {
     render() {
         return (
             <div id="popQuizAnswerPageContents">
-                <h2 className="popHeadlineText">Pop Quiz!</h2>
+                <h2 className="popHeadlineText">Pop Quiz! Did you get it right?</h2>
                 <div className="popQuizBox">
                     <h3>{this.state.question}</h3>
                     <ul className="popQuizAnswers">
@@ -663,7 +705,7 @@ class PageContent extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            10000
+            15000
         );
     }
 

@@ -1,50 +1,47 @@
 html,body{ margin:0; padding:0; height:100%; width:100%; }
 
 #Menu {
-    float: right;
-    position: relative;
-    font-size: 3rem;
-}
-
-.overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
-    overflow-x: hidden;
-    transition: 0.5s;
-}
-
-.overlay-content {
-    position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-}
-
-.overlay a {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
-}
-
-.overlay .closebtn {
     position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
+    right: 0px;
+    font-size: 3rem;
+    margin: 0.3rem;
+    outline: inherit;
+    background: none;
+    border: none;
+}
+
+.MenuContainer {
+    position: relative;
+}
+
+.MenuContent {
+}
+
+.MenuContent button{
+    color: white;
+    font-size: 2rem;
+    border: none;
+    margin: 1rem;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
+}
+
+#logo {
+    position: absolute;
+    left: 0px;
+    color: #b34d14;
+    margin: 1.2rem 1rem 1rem 1rem;
+    font-size: 2.5rem;
+}
+
+.overlay-menu__wrap {
+    width: 80%;
+}
+
+.overlay-menu__wrap h1 {
+    color: #49B788;
 }
 
 h2 {
@@ -56,32 +53,31 @@ h2 {
 #challengeBox{
     background-color: rgba(255, 255, 255, 0.6);
     border: none;
-    margin: 0.5rem;
-    padding: 0.5rem 1rem 2rem 1rem;
+    padding: 0.5rem 1rem 3rem 1rem;
+    position: sticky;
+    margin: 5rem 0.5rem 0.5rem 0.5rem;
 }
 
 #challengeHeader{
     margin-top: 0.2rem;
 }
 
-.buttonTrue{
-    margin: 0.5rem;
-    padding: 0.5rem;
-    background-color: white;
+#button {
     border: none;
-    position: sticky;
-    right: 1.2rem;
-    top: 6.5rem;
+    float: right;
+    margin: 0rem;
+    padding: 0.5rem;
+}
+
+.buttonTrue{
+    background-color: white;
+    right: 0;
+    border: none;
 }
 
 .buttonFalse{
-    margin: 0.5rem;
-    padding: 0.5rem;
-    background-color: red;
+    background-color: #49B788;
     border: none;
-    position: sticky;
-    right: 1.2rem;
-    top: 6.5rem;
     content: 'Well done!';
 }
 
@@ -104,14 +100,122 @@ h2 {
 
 #Questions li{
     list-style-type: none;
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
     border: solid white;
     padding: 0.5rem;
     text-align: left;
+}
 
+.Answers ul {
+    margin-left: 0;
 }
 
 .content {
     margin: 0.5rem;
+}
+
+ol.progtrckr li span {
+    padding: 0 0.5rem !important;
+}
+
+ol.progtrckr li.progtrckr-todo {
+    color: silver;
+    /*border-bottom: 4px solid silver;*/
+}
+
+ol.progtrckr li.progtrckr-doing {
+    color: black;
+    /*border-bottom: 4px solid #CCCCCC;*/
+}
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    /*border-bottom: 4px solid #5cb85c;*/
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+
+ol.progtrckr li:before {
+    position: relative;
+    /*bottom: -0.7rem;*/
+    float: left;
+    left: 50%;
+}
+
+ol.progtrckr li.progtrckr-todo:before {
+    content: "\2713";
+    border: solid #49b788 1px;
+    background-color: white;
+    width: 2rem;
+    line-height: 2rem;
+}
+
+
+ol.progtrckr li.progtrckr-doing:before {
+    content: "\2713";
+    color: white;
+    background-color: #CCCCCC;
+    width: 2rem;
+    line-height: 2rem;
+}
+
+
+ol.progtrckr li.progtrckr-done:before {
+    content: "\2713";
+    color: white;
+    background-color: #49B788;
+    width: 2rem;
+    line-height: 2rem;
+}
+
+ol.progtrckr li.progtrckr-done:hover:before {
+    color: #333;
+}
+
+
+/* --- */
+
+.progtrckr {
+    text-align: center;
+    padding-bottom: 16px;
+}
+.progtrckr li {
+    margin-bottom: 10px;
+}
+
+/* --- */
+
+ol.progtrckr {
+    list-style-type: none;
+    padding: 0;
+}
+
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 2.5rem;
+    cursor: pointer;
+}
+
+ol.progtrckr li span {
+    padding: 0 1.5rem;
+}
+
+.nextButton {
+    color: white;
+    font-size: 1rem;
+    border: solid 1px white;
+    background: none;
+    cursor: pointer;
+    outline: inherit;
+    float: right;
+    margin: 0.2rem;
+    padding: 0.5rem;
+}
+
+.backButton {
+    visibility: hidden;
 }
